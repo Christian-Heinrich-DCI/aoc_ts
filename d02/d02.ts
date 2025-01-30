@@ -1,4 +1,6 @@
-import input from "./testinput.txt";
+// import input from "./testinput.txt";
+// import input from "./testinput2.txt";
+import input from "./input.txt";
 
 // will store index of safe reports - would probably not need this, but good for debugging
 const safe: number[] = [];
@@ -38,19 +40,16 @@ reports.forEach((reportString: string, reportIndex) => {
             return;
         }
 
-        console.log("still running with index", reportIndex)
-
         // test if current change follows the pattern of
         // last change (increasing/decreasing)
-        if (i > 0) {
-
+        if ((changes[i] > 0 && changes[i + 1] < 0) || (changes[i] < 0 && changes[i + 1] > 0)) {
+            console.log("direction changed!", changes[i - 1], changes[i]);
+            unsafe.push(reportIndex);
+            return;
         }
     }
-    console.log(changes);
-    console.log("---")
-})
+    safe.push(reportIndex);
 
-// .forEach((strNum: string) => {
-//     const level: number = Number(strNum);
-//     console.log(level);
-// })
+});
+
+console.log("safe: ", safe.length, "unsafe: ", unsafe.length);
