@@ -42,14 +42,15 @@ reports.forEach((reportString: string, reportIndex) => {
 
         // test if current change follows the pattern of
         // last change (increasing/decreasing)
-        if ((changes[i] > 0 && changes[i + 1] < 0) || (changes[i] < 0 && changes[i + 1] > 0)) {
+        if ((i > 0) && ((changes[i - 1] > 0 && changes[i] < 0) || (changes[i - 1] < 0 && changes[i] > 0))) {
             console.log("direction changed!", changes[i - 1], changes[i]);
             unsafe.push(reportIndex);
             return;
         }
     }
-    safe.push(reportIndex);
+    // end of for loop
 
+    safe.push(reportIndex);
 });
 
 console.log("safe: ", safe.length, "unsafe: ", unsafe.length);
